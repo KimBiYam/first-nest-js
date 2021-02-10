@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CatDto } from './cat.dto';
 
 @Controller('cats')
@@ -22,5 +30,10 @@ export class CatsController {
   @Put(':id')
   update(@Param('id') id: string, @Body() catDto: CatDto) {
     return `This action updates a #${id} cat`;
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return `This action removes a #${id} cat`;
   }
 }
