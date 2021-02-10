@@ -7,8 +7,11 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CatDto } from './cat.dto';
 
+@ApiTags('cats')
+@ApiResponse({ status: 200, description: '성공' })
 @Controller('cats')
 export class CatsController {
   @Post()
