@@ -45,7 +45,7 @@ export class CatsController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCatDto: UpdateCatDto,
   ) {
-    return this.catsServcie.updateOne(id, updateCatDto);
+    return this.catsServcie.update(id, updateCatDto);
   }
 
   @Delete(':id')

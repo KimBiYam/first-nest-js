@@ -32,7 +32,7 @@ export class CatsService {
     return true;
   }
 
-  updateOne(id: number, updateCatDto: UpdateCatDto): boolean {
+  update(id: number, updateCatDto: UpdateCatDto): boolean {
     const cat = this.findOne(id);
     this.deleteOne(id);
     this.cats.push({ ...cat, ...updateCatDto });
