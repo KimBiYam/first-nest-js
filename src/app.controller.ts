@@ -1,4 +1,5 @@
 import { Controller, Get, Query, Redirect } from '@nestjs/common';
+import { ApiProperty, ApiQuery } from '@nestjs/swagger';
 import { AppService } from './app.service';
 
 @Controller()
@@ -11,6 +12,7 @@ export class AppController {
   }
 
   @Get('docs')
+  @ApiQuery({ name: 'version' })
   @Redirect('https://docs.nestjs.com', 302)
   getDocs(@Query('version') version) {
     if (version && version === '5') {

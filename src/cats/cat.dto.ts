@@ -3,6 +3,10 @@ import { IsNumber, IsString } from 'class-validator';
 
 export class CatDto {
   @ApiProperty()
+  @IsNumber()
+  id: number;
+
+  @ApiProperty()
   @IsString()
   name: string;
 
