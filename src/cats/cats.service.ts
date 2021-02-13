@@ -1,32 +1,37 @@
-import { Injectable } from '@nestjs/common';
-import { CatDto } from './cat.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CatModels } from './cat.models';
+import CreateCatDto from './dto/create-cat.dto';
 
 @Injectable()
 export class CatsService {
-  private cats: CatDto[] = [];
+  private cats: CatModels[] = [];
 
-  findAll(): CatDto[] {
+  findAll(): CatModels[] {
     return this.cats;
   }
 
-  findOne(id: number): CatDto {
-    return this.cats.find((cat) => cat.id === id);
+  findOne(id: number): CatModels {
+    const cat = this.cats.find((cat) => cat.id === id);
+    if (cat === undefined) {
+      throw new NotFoundException(`Cat with Id ${id} not found.`);
+    }
+    return cat;
   }
 
-  deleteOne(id: number): boolean {
+  deleteOne(id: number) {
+    this.findOne(id);
     this.cats = this.cats.filter((cat) => cat.id !== id);
-    return true;
   }
 
-  create(catData): boolean {
+  create(createCatDto: CreateCatDto): boolean {
     this.cats.push({
       id: this.cats.length + 1,
-      ...catData,
+      ...createCatDto,
     });
     return true;
   }
 
-  search(age: number): CatDto[] {
+  search(age: number): CatModels[] {
     return this.cats.filter((cat) => cat.age === age);
   }
 }

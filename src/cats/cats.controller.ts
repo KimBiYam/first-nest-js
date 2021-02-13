@@ -9,38 +9,38 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CatDto } from './cat.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { CatModels } from './cat.models';
 import { CatsService } from './cats.service';
+import CreateCatDto from './dto/create-cat.dto';
 
 @ApiTags('cats')
-@ApiResponse({ status: 200, description: '성공' })
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsServcie: CatsService) {}
 
   @Post()
-  create(@Body() catData): boolean {
-    return this.catsServcie.create(catData);
+  create(@Body() createCatDto: CreateCatDto): boolean {
+    return this.catsServcie.create(createCatDto);
   }
 
   @Get('')
-  findAll(): CatDto[] {
+  findAll(): CatModels[] {
     return this.catsServcie.findAll();
   }
 
   @Get('search')
-  search(@Query('age', ParseIntPipe) age: number): CatDto[] {
+  search(@Query('age', ParseIntPipe) age: number): CatModels[] {
     return this.catsServcie.search(age);
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): CatDto {
+  findOne(@Param('id', ParseIntPipe) id: number): CatModels {
     return this.catsServcie.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() catDto: CatDto) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() CatModels: CatModels) {
     return `This action updates a #${id} cat`;
   }
 

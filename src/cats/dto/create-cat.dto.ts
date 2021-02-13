@@ -1,11 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
 
-export class CatDto {
-  @ApiProperty()
-  @IsNumber()
-  id: number;
-
+export default class CreateCatDto {
   @ApiProperty()
   @IsString()
   name: string;
@@ -17,4 +13,8 @@ export class CatDto {
   @ApiProperty()
   @IsString()
   breed: string;
+
+  @ApiProperty()
+  @IsString({ each: true })
+  favoriteThings: string[];
 }
