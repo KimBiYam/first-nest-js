@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CatModels } from './cat.models';
 import CreateCatDto from './dto/create-cat.dto';
+import UpdateCatDto from './dto/update-cat.dto';
 
 @Injectable()
 export class CatsService {
@@ -28,6 +29,13 @@ export class CatsService {
       id: this.cats.length + 1,
       ...createCatDto,
     });
+    return true;
+  }
+
+  updateOne(id: number, updateCatDto: UpdateCatDto): boolean {
+    const cat = this.findOne(id);
+    this.deleteOne(id);
+    this.cats.push({ ...cat, ...updateCatDto });
     return true;
   }
 

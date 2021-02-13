@@ -5,14 +5,15 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
-  Put,
   Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CatModels } from './cat.models';
 import { CatsService } from './cats.service';
 import CreateCatDto from './dto/create-cat.dto';
+import UpdateCatDto from './dto/update-cat.dto';
 
 @ApiTags('cats')
 @Controller('cats')
@@ -39,9 +40,12 @@ export class CatsController {
     return this.catsServcie.findOne(id);
   }
 
-  @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() CatModels: CatModels) {
-    return `This action updates a #${id} cat`;
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateCatDto: UpdateCatDto,
+  ) {
+    return this.catsServcie.updateOne(id, updateCatDto);
   }
 
   @Delete(':id')
